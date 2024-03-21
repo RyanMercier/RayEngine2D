@@ -12,7 +12,7 @@ Game *game;
 
 void Initialize()
 {
-    InitWindow(screenWidth, screenHeight, "C++ Template");
+    InitWindow(screenWidth, screenHeight, "RayEngine2D");
     SetTargetFPS(60);
     renderer = new Renderer(screenWidth, screenHeight, tileSize);
     renderer->Init();

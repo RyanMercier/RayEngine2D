@@ -57,9 +57,6 @@ public:
     virtual void Update(float deltaTime) = 0;
 };
 
-// Initialize static member
-int Entity::nextId = 0;
-
 // Actor class inheriting from Entity
 class Actor : public Entity
 {
@@ -78,10 +75,7 @@ public:
     }
 
     // Override Update method for Actors
-    void Update(float deltaTime) override
-    {
-        // Update logic specific to Actors...
-    }
+    void Update(float deltaTime) override;
 };
 
 // Item class inheriting from Entity
@@ -102,10 +96,7 @@ public:
     }
 
     // Override Update method for Items
-    void Update(float deltaTime) override
-    {
-        // Update logic specific to Items...
-    }
+    void Update(float deltaTime) override;
 };
 
 // Prop class inheriting from Entity
@@ -126,10 +117,8 @@ public:
     }
 
     // Override Update method for Props
-    void Update(float deltaTime) override
-    {
-        // Update logic specific to Props...
-    }
+    void Update(float deltaTime) override;
 };
 
 #endif
+// ENTITY_H

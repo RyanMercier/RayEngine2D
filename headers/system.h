@@ -20,14 +20,8 @@ private:
 public:
     MovementSystem(std::vector<TransformComponent> &pos) : Transforms(pos) {}
 
-    void Update(float deltaTime) override
-    {
-        // Iterate over TransformComponents and update Transforms
-        for (TransformComponent &pos : Transforms)
-        {
-            // Update Transform based on velocity, etc.
-        }
-    }
+    void Update(float deltaTime) override;
 };
 
 #endif
+// SYSTEM_H

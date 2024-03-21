@@ -19,44 +19,18 @@ public:
     }
 
     // Function to create and add entities to the ECS
-    Actor *CreateActor()
-    {
-        Actor *actor = new Actor();
-        // Add default components for Actors
-        actor->AddComponent<TransformComponent>();
-        actor->AddComponent<PhysicsComponent>();
-        // Add actor to ECS
-        entityComponentMap[actor->GetId()] = actor->GetAllComponents();
-        return actor;
-    }
+    Actor *CreateActor();
 
-    Item *CreateItem()
-    {
-        Item *item = new Item();
-        // Add default components for Items
-        item->AddComponent<TransformComponent>();
-        // Add item to ECS
-        entityComponentMap[item->GetId()] = item->GetAllComponents();
-        return item;
-    }
+    Item *CreateItem();
 
-    Prop *CreateProp()
-    {
-        Prop *prop = new Prop();
-        // Add default components for Props
-        prop->AddComponent<TransformComponent>();
-        // Add prop to ECS
-        entityComponentMap[prop->GetId()] = prop->GetAllComponents();
-        return prop;
-    }
+    Prop *CreateProp();
 
     void Shoot()
     {
     }
 
-    void Update(float deltaTime)
-    {
-    }
+    void Update(float deltaTime);
 };
 
 #endif
+// GAME_H

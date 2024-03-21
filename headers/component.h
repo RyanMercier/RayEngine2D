@@ -21,3 +21,4 @@ class PhysicsComponent : public Component
 };
 
 #endif
+// COMPONENT_H

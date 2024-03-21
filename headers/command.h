@@ -62,4 +62,5 @@ public:
     }
 };
 
-#endif // COMMAND_H
+#endif
+// COMMAND_H
