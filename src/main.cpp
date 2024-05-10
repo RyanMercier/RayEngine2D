@@ -13,7 +13,7 @@ Game *game;
 void Initialize()
 {
     InitWindow(screenWidth, screenHeight, "RayEngine2D");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
     renderer = new Renderer(screenWidth, screenHeight, tileSize);
     renderer->Init();
     game = new Game();                                         // Initialize the Model class

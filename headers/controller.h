@@ -15,7 +15,9 @@ private:
     float cameraSpeed = 200.0f;
 
 public:
-    Controller(Camera2D *cam, Game *gme) : camera(cam), game(gme) {}
+    Controller(Camera2D *cam, Game *gme) : camera(cam), game(gme)
+    {
+    }
 
     ~Controller()
     {
@@ -32,14 +34,27 @@ public:
         commands.clear();
 
         // Handle camera movement commands
-        if (IsKeyDown(KEY_RIGHT))
-            commands.push_back(new MoveCameraCommand(camera, {-cameraSpeed * deltaTime, 0.0f}));
-        if (IsKeyDown(KEY_LEFT))
-            commands.push_back(new MoveCameraCommand(camera, {cameraSpeed * deltaTime, 0.0f}));
-        if (IsKeyDown(KEY_DOWN))
-            commands.push_back(new MoveCameraCommand(camera, {0.0f, -cameraSpeed * deltaTime}));
-        if (IsKeyDown(KEY_UP))
-            commands.push_back(new MoveCameraCommand(camera, {0.0f, cameraSpeed * deltaTime}));
+        if (IsKeyDown(KEY_D))
+        {
+            commands.push_back(new MoveEntityCommand(game->GetPlayer(), cameraSpeed * deltaTime, 0.0f));
+        }
+        if (IsKeyDown(KEY_A))
+        {
+            commands.push_back(new MoveEntityCommand(game->GetPlayer(), -cameraSpeed * deltaTime, 0.0f));
+        }
+        if (IsKeyDown(KEY_S))
+        {
+            commands.push_back(new MoveEntityCommand(game->GetPlayer(), 0.0f, cameraSpeed * deltaTime));
+        }
+        if (IsKeyDown(KEY_W))
+        {
+            commands.push_back(new MoveEntityCommand(game->GetPlayer(), 0.0f, -cameraSpeed * deltaTime));
+        }
+
+        TransformComponent *playerPos = game->GetPlayer()->GetComponents<TransformComponent>()[0];
+        camera->target = {playerPos->x, playerPos->y};
+
+        // std::cout << playerPos->x << ", " << playerPos->y << std::endl;
 
         // Handle zooming commands
         if (IsKeyDown(KEY_Z))                                         // For example, you can use the Z key for zooming in

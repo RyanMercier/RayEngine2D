@@ -70,10 +70,14 @@ void Renderer::DrawTilemap()
 {
     if (tilemap != nullptr)
     {
-        // Calculate visible area based on camera position and zoom level
+        Vector2 cameraPosition;
+        cameraPosition.x = camera.target.x - (camera.offset.x / camera.zoom);
+        cameraPosition.y = camera.target.y - (camera.offset.y / camera.zoom);
+
+        // Calculate visible area based on camera offset and zoom level
         Rectangle visibleArea;
-        visibleArea.x = -camera.offset.x / camera.zoom;
-        visibleArea.y = -camera.offset.y / camera.zoom;
+        visibleArea.x = cameraPosition.x;
+        visibleArea.y = cameraPosition.y;
         visibleArea.width = screenWidth / camera.zoom;
         visibleArea.height = screenHeight / camera.zoom;
 

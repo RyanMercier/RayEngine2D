@@ -11,6 +11,7 @@ public:
     virtual void Execute() = 0;
 };
 
+// CAMERA COMMANDS
 class MoveCameraCommand : public Command
 {
 private:
@@ -59,6 +60,53 @@ public:
     void Execute() override
     {
         game->Shoot();
+    }
+};
+
+// Entity COMMANDS
+class MoveEntityCommand : public Command
+{
+private:
+    Entity *entity;
+    float xOffset = 0;
+    float yOffset = 0;
+
+public:
+    MoveEntityCommand(Entity *e, float xOffset, float yOffset)
+    {
+        entity = e;
+        this->xOffset = xOffset;
+        this->yOffset = yOffset;
+    }
+
+    void Execute() override
+    {
+        TransformComponent *transform = entity->GetComponents<TransformComponent>()[0];
+        transform->x += xOffset;
+        transform->y += yOffset;
+    }
+};
+
+class SetEntityLocationCommand : public Command
+{
+private:
+    Entity *entity;
+    float xPos = 0;
+    float yPos = 0;
+
+public:
+    SetEntityLocationCommand(Entity *e, float xPos, float yPos)
+    {
+        entity = e;
+        this->xPos = xPos;
+        this->yPos = yPos;
+    }
+
+    void Execute() override
+    {
+        TransformComponent *transform = entity->GetComponents<TransformComponent>()[0];
+        transform->x = xPos;
+        transform->y = yPos;
     }
 };
 

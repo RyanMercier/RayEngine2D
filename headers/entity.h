@@ -7,13 +7,16 @@
 // Base Entity class
 class Entity
 {
-private:
+protected:
     static int nextId;
     int id;
     std::vector<Component *> components;
 
 public:
-    Entity() : id(nextId++) {}
+    Entity() : id(nextId++)
+    {
+    }
+
     virtual ~Entity()
     {
         // Clean up components
@@ -61,10 +64,14 @@ public:
 class Actor : public Entity
 {
 protected:
-    std::vector<Component *> components; // Components associated with Actors
-
 public:
     Actor() {}
+
+    Actor(float xPos, float yPos)
+    {
+        AddComponent<TransformComponent>(xPos, yPos);
+    }
+
     virtual ~Actor()
     {
         // Cleanup components
@@ -82,8 +89,6 @@ public:
 class Item : public Entity
 {
 protected:
-    std::vector<Component *> components; // Components associated with Items
-
 public:
     Item() {}
     virtual ~Item()
@@ -103,8 +108,6 @@ public:
 class Prop : public Entity
 {
 protected:
-    std::vector<Component *> components; // Components associated with Props
-
 public:
     Prop() {}
     virtual ~Prop()
