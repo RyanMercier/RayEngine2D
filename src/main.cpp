@@ -15,9 +15,9 @@ void Initialize()
     InitWindow(screenWidth, screenHeight, "RayEngine2D");
     SetTargetFPS(120);
     renderer = new Renderer(screenWidth, screenHeight, tileSize);
-    renderer->Init();
     game = new Game();                                         // Initialize the Model class
     controller = new Controller(&renderer->GetCamera(), game); // Pass a pointer to the Renderer's camera to the controller
+    renderer->Init(game);
 }
 
 void Update()

@@ -38,6 +38,8 @@ public:
     }
 
     void Update(float deltaTime);
+
+    std::vector<std::tuple<SpriteComponent *, TransformComponent *, AnimationComponent *>> GetSpriteInfo();
 };
 
 #endif

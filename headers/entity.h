@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include <vector>
+#include "raylib.h"
 #include "component.h" // Include Component definitions
 
 // Base Entity class
@@ -28,11 +29,13 @@ public:
 
     int GetId() const { return id; }
 
-    // Add a component to the entity
+    // Add a component to the entity and return a pointer to it
     template <typename T, typename... Args>
-    void AddComponent(Args &&...args)
+    T *AddComponent(Args &&...args)
     {
-        components.push_back(new T(std::forward<Args>(args)...));
+        T *component = new T(std::forward<Args>(args)...);
+        components.push_back(component);
+        return component;
     }
 
     // Get components of a specific type

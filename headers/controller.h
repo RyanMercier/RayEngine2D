@@ -52,15 +52,17 @@ public:
         }
 
         TransformComponent *playerPos = game->GetPlayer()->GetComponents<TransformComponent>()[0];
-        camera->target = {playerPos->x, playerPos->y};
 
-        // std::cout << playerPos->x << ", " << playerPos->y << std::endl;
+        // Smoothly move the camera's target towards the player
+        float smoothingFactor = 0.1f; // Adjust smoothing factor as needed (lower is smoother)
+        camera->target.x += (playerPos->x - camera->target.x) * smoothingFactor;
+        camera->target.y += (playerPos->y - camera->target.y) * smoothingFactor;
 
         // Handle zooming commands
-        if (IsKeyDown(KEY_Z))                                         // For example, you can use the Z key for zooming in
-            commands.push_back(new ZoomCameraCommand(camera, 0.1f));  // Zoom in
-        if (IsKeyDown(KEY_X))                                         // For example, you can use the X key for zooming out
-            commands.push_back(new ZoomCameraCommand(camera, -0.1f)); // Zoom out
+        if (IsKeyDown(KEY_Z))                                                     // For example, you can use the Z key for zooming in
+            commands.push_back(new ZoomCameraCommand(camera, 0.1f * deltaTime));  // Zoom in
+        if (IsKeyDown(KEY_X))                                                     // For example, you can use the X key for zooming out
+            commands.push_back(new ZoomCameraCommand(camera, -0.1f * deltaTime)); // Zoom out
 
         // Handle shooting command
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))

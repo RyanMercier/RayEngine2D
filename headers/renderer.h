@@ -7,20 +7,22 @@
 #include <iostream>
 #include <chrono>
 #include "raylib.h"
+#include "../headers/game.h"
+#include "../headers/component.h"
 
 class Renderer
 {
-private:
+protected:
     int screenWidth;
     int screenHeight;
     int tileSize;
     int **tilemap;
     Texture2D tileAtlas;
-    Texture2D *textures;
-    int texturesCount;
+    std::unordered_map<std::string, Texture2D> textures;
     Shader shader;
     std::vector<std::string> textureFiles;
     Camera2D camera; // Raylib's built-in Camera2D struct
+    Game *game;
 
 public:
     Renderer(int width, int height, int size)
@@ -29,8 +31,6 @@ public:
         screenHeight = height;
         tileSize = size;
         tilemap = nullptr;
-        textures = nullptr;
-        texturesCount = 0;
     }
 
     ~Renderer()
@@ -40,9 +40,10 @@ public:
         UnloadShader(shader);
     }
 
-    void Init()
+    void Init(Game *game)
     {
-        // LoadTexturesFromDirectory("textures"); // Assuming textures are stored in a "textures" directory
+        this->game = game;
+        LoadTexturesFromDirectory("");
         LoadTileAtlas("resources/textures/palette.png"); // Load the palette texture
         LoadTilemap("resources/tilemap.txt", screenWidth / tileSize, screenHeight / tileSize);
         shader = LoadShader("shaders/vert.glsl", "shaders/frag.glsl");
@@ -58,6 +59,8 @@ public:
     {
         return camera;
     }
+
+    Rectangle GetVisibleArea();
 
     void LoadTexturesFromDirectory(const char *directory);
 
@@ -78,6 +81,7 @@ public:
         BeginMode2D(camera);
 
         DrawTilemap();
+        DrawSprites();
 
         EndMode2D();
 
@@ -87,6 +91,7 @@ public:
 
 private:
     void DrawTilemap();
+    void DrawSprites();
 };
 
 #endif

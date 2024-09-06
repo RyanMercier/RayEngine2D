@@ -23,5 +23,21 @@ public:
     void Update(float deltaTime) override;
 };
 
+class SpriteSystem : public System
+{
+private:
+    std::vector<SpriteComponent> &Sprites;
+
+public:
+    SpriteSystem(std::vector<SpriteComponent> &sprites) : Sprites(sprites) {}
+
+    void Update(float deltaTime) override {}
+
+    std::vector<SpriteComponent> GetSprites()
+    {
+        return Sprites;
+    }
+};
+
 #endif
 // SYSTEM_H

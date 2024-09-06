@@ -42,3 +42,43 @@ void Game::Update(float deltaTime)
         system->Update(deltaTime);
     }
 }
+
+std::vector<std::tuple<SpriteComponent *, TransformComponent *, AnimationComponent *>> Game::GetSpriteInfo()
+{
+    std::vector<std::tuple<SpriteComponent *, TransformComponent *, AnimationComponent *>> spriteInfo;
+
+    for (const auto &pair : entityComponentMap)
+    {
+        SpriteComponent *spriteComponent = nullptr;
+        TransformComponent *transformComponent = nullptr;
+        AnimationComponent *animationComponent = nullptr;
+
+        for (Component *component : pair.second)
+        {
+            if (component->getType() == "sprite")
+            {
+                spriteComponent = static_cast<SpriteComponent *>(component);
+            }
+            else if (component->getType() == "transform")
+            {
+                transformComponent = static_cast<TransformComponent *>(component);
+            }
+            else if (component->getType() == "animation")
+            {
+                animationComponent = static_cast<AnimationComponent *>(component);
+            }
+
+            if (spriteComponent && transformComponent && animationComponent)
+            {
+                break; // Early exit if we found the required components
+            }
+        }
+
+        if (spriteComponent && transformComponent)
+        {
+            spriteInfo.emplace_back(spriteComponent, transformComponent, animationComponent);
+        }
+    }
+
+    return spriteInfo;
+}
